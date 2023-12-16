@@ -1,6 +1,10 @@
 user_promt = "Enter a todo: "
 
+todos = []
+
 while True:
     todo = input(user_promt)
-    print(todo)
-    print("Next...")
+    #todos.append() - It will give Error
+    print(todo.capitalize())
+    todos.append(todo)
+    print(todos)
