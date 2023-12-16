@@ -6,18 +6,18 @@ while True:
         case 'add':
             todo = input("Enter a todo: ") + "\n"
 
-            file = open("todos.txt","r")
+            file = open("/Users/manasranjanmunda/Documents/GitHub/Newt-Global-Private-Limited/Python Mega Course Learn Python in 60 Days Build 20 Apps/App1 Todo List/todos.txt","r")
             todos = file.readlines()
             file.close()
 
             todos.append(todo)
 
-            file = open("todos.txt", 'w')
+            file = open("/Users/manasranjanmunda/Documents/GitHub/Newt-Global-Private-Limited/Python Mega Course Learn Python in 60 Days Build 20 Apps/App1 Todo List/todos.txt", 'w')
             file.writelines(todos)
             file.close()
 
         case 'show':
-            file = open("todos.txt", "r")
+            file = open("/Users/manasranjanmunda/Documents/GitHub/Newt-Global-Private-Limited/Python Mega Course Learn Python in 60 Days Build 20 Apps/App1 Todo List/todos.txt", "r")
             todos = file.readlines()
             file.close()
 
