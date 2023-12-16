@@ -1,0 +1,1 @@
+temperature = [98, 45.5, "hot"]

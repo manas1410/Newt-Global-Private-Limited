@@ -12,6 +12,8 @@ while True:
             for index, item in enumerate(todos):
                 row = f"{index + 1}-{item}"
                 print(row)
+            print("Hello", index, item)
+            print("Length is:",len(todos))
         case "edit":
             number = int(input("Number of the todo to edit: "))
             existing_todo = todos[number - 1]
@@ -29,4 +31,9 @@ print("Bye!")
 
 
 
+#2
+for i, j in enumerate("Hello"):
+    print(i, j)
 
+a = enumerate(['a','b','c'])
+print(list(a)) #[(0, 'a'), (1, 'b'), (2, 'c')]
