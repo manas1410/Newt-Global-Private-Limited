@@ -1,10 +1,19 @@
-user_promt = "Enter a todo: "
-
 todos = []
 
 while True:
-    todo = input(user_promt)
-    #todos.append() - It will give Error
-    print(todo.capitalize())
-    todos.append(todo)
-    print(todos)
+    user_Action = input("Type add or show, or exit:")
+
+    match user_Action:
+        case 'add':
+            todo = input("Enter a todo: ")
+            todos.append(todo)
+        case 'show':
+            print(todos)
+        case 'exit':
+            break
+
+print("Bye!")
+
+
+
+
