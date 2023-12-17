@@ -1,7 +1,8 @@
-def get_todos(filepath="todos.txt"):
+def get_todos(filepath):
+    filepath = "todos1.txt"
     with open(filepath, "r") as file:
         todos_local = file.readlines()
-    return todos_local
+    return filepath
 
 
 def write_todos(filepath,todos_arg):
@@ -16,14 +17,14 @@ while True:
     if user_Action.startswith("add"):
         todo = user_Action[4:] + "\n"
 
-        todos = get_todos()
+        todos = get_todos("todos.txt")
 
         todos.append(todo)
 
         write_todos("todos.txt", todos)
 
     elif user_Action.startswith("show"):
-        todos = get_todos()
+        todos = get_todos("todos.txt")
 
         for index, item in enumerate(todos):
             row = f"{index + 1}-{item.strip('\n')}"
@@ -33,7 +34,7 @@ while True:
         try:
             number = int(user_Action[5:])
 
-            todos = get_todos()
+            todos = get_todos("todos.txt")
 
             existing_todo = todos[number - 1]
             new_todo = input("Enter new todo: ")
@@ -48,7 +49,7 @@ while True:
         try:
             number = int(user_Action[9:])
 
-            todos = get_todos()
+            todos = get_todos("todos.txt")
 
             index = number - 1
             todo_to_remove = todos[index].strip('\n')
