@@ -12,6 +12,21 @@ def write_todos(todos_arg, filepath = "todos.txt", ):
     with open(filepath, 'w') as file:
         file.writelines(todos_arg)
 
+text = """
+Principle of productivity:
+Managing your inflow.
+Systemizing everything that repeats.
+"""
+
+print(text)
+
+text1 = """
+Principle of productivity.\
+Managing your inflow.\
+Systemizing everything that repeats.\
+"""
+
+print(text1)
 
 
 while True:
