@@ -1,4 +1,2 @@
 prepare
-shower
-play
-read
+Get the Car
