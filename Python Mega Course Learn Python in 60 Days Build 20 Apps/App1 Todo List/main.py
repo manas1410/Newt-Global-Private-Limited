@@ -13,7 +13,6 @@ def write_todos(todos_arg, filepath = "todos.txt", ):
         file.writelines(todos_arg)
 
 
-
 while True:
     user_Action = input("Type add, show, edit, complete or exit: ")
     user_Action = user_Action.strip()
