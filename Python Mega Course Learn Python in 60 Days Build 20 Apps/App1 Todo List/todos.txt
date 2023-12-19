@@ -1,11 +1,7 @@
 prepare
-Get Out
-get in
 Get the Car
 Make Pizza
 Clean the Road
-Write
 Master Python
 Todo1
-Todo2
 
