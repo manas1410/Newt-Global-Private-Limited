@@ -1,5 +1,6 @@
 import PySimpleGUI as sg
 
+
 def convert(feet, inches):
     meters = feet * 0.3048 + inches * 0.0254
     return meters
@@ -36,6 +37,5 @@ while True:
         window["output"].update(value=f"{result} m", text_color="white")
     except ValueError:
         sg.popup("Please provide two numbers.", font=("Helvetica", 20))
-
 
 window.close()
