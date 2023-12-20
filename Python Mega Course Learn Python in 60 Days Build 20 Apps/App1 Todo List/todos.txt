@@ -4,3 +4,5 @@ Make Pizza
 Clean the Road
 Master Python
 Todo1
+Clean
+go Away
