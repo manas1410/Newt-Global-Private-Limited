@@ -1,5 +1,4 @@
 Make Pizza
 Clean the Road
 Clean
-go Away
 Master The Python
