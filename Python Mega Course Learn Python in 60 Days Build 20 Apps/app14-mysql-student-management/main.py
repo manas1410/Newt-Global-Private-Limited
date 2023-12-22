@@ -1,10 +1,19 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QApplication, QLabel, QWidget, QGridLayout, \
-    QLineEdit, QPushButton, QMainWindow, QTableWidget, QTableWidgetItem, QDialog, \
-    QVBoxLayout, QComboBox, QToolBar, QStatusBar, QMessageBox
+     QLineEdit, QPushButton, QMainWindow, QTableWidget, QTableWidgetItem, QDialog, \
+     QVBoxLayout, QComboBox, QToolBar, QStatusBar, QMessageBox
 from PyQt6.QtGui import QAction, QIcon
 import sys
 import sqlite3
+
+
+class DatabaseConnection:
+    def __init__(self, database_file="database.db"):
+        self.database_file = database_file
+
+    def connect(self):
+        connection = sqlite3.connect(self.database_file)
+        return connection
 
 
 class MainWindow(QMainWindow):
@@ -36,7 +45,7 @@ class MainWindow(QMainWindow):
         self.table.verticalHeader().setVisible(False)
         self.setCentralWidget(self.table)
 
-        # Create Toolbar and add toolbar elements
+        # Create toolbar and add toolbar elements
         toolbar = QToolBar()
         toolbar.setMovable(True)
         self.addToolBar(toolbar)
@@ -44,12 +53,13 @@ class MainWindow(QMainWindow):
         toolbar.addAction(add_student_action)
         toolbar.addAction(search_action)
 
-        # Create statusbar and add statusbarelements
+        # Create status bar and add status bar elements
         self.statusbar = QStatusBar()
         self.setStatusBar(self.statusbar)
 
         # Detect a cell click
         self.table.cellClicked.connect(self.cell_clicked)
+
     def cell_clicked(self):
         edit_button = QPushButton("Edit Record")
         edit_button.clicked.connect(self.edit)
@@ -66,7 +76,7 @@ class MainWindow(QMainWindow):
         self.statusbar.addWidget(delete_button)
 
     def load_data(self):
-        connection = sqlite3.connect("database.db")
+        connection = DatabaseConnection().connect()
         result = connection.execute("SELECT * FROM students")
         self.table.setRowCount(0)
         for row_number, row_data in enumerate(result):
@@ -102,7 +112,7 @@ class AboutDialog(QMessageBox):
         self.setWindowTitle("About")
         content = """
         This app was created during the course "The Python Mega Course".
-        Feel Free to modity and resue this app.
+        Feel free to modify and reuse this app.
         """
         self.setText(content)
 
@@ -114,8 +124,7 @@ class EditDialog(QDialog):
         self.setFixedHeight(300)
 
         layout = QVBoxLayout()
-
-        # Get Student name from selected row
+        # Get student name from selected row
         index = main_window.table.currentRow()
         student_name = main_window.table.item(index, 1).text()
 
@@ -143,15 +152,15 @@ class EditDialog(QDialog):
 
         # Add a submit button
         button = QPushButton("Update")
-        button.clicked.connect(self.update_Student)
+        button.clicked.connect(self.update_student)
         layout.addWidget(button)
 
         self.setLayout(layout)
 
-    def update_Student(self):
-        connection = sqlite3.connect("database.db")
+    def update_student(self):
+        connection = DatabaseConnection().connect()
         cursor = connection.cursor()
-        cursor.execute("Update students set name = ?, course = ?, mobile = ? where id = ?",
+        cursor.execute("UPDATE students SET name = ?, course = ?, mobile = ? WHERE id = ?",
                        (self.student_name.text(),
                         self.course_name.itemText(self.course_name.currentIndex()),
                         self.mobile.text(),
@@ -160,8 +169,9 @@ class EditDialog(QDialog):
         cursor.close()
         connection.close()
 
-        # refresh the table
+        # Refresh the table
         main_window.load_data()
+
 
 class DeleteDialog(QDialog):
     def __init__(self):
@@ -181,14 +191,13 @@ class DeleteDialog(QDialog):
         yes.clicked.connect(self.delete_student)
 
     def delete_student(self):
-        # Get selected row index from selected row
+        # Get selected row index and student id
         index = main_window.table.currentRow()
         student_id = main_window.table.item(index, 0).text()
 
         connection = sqlite3.connect("database.db")
         cursor = connection.cursor()
-        cursor.execute("Delete from students where id = ?",
-                       (student_id,))
+        cursor.execute("DELETE from students WHERE id = ?", (student_id, ))
         connection.commit()
         cursor.close()
         connection.close()
@@ -198,7 +207,7 @@ class DeleteDialog(QDialog):
 
         confirmation_widget = QMessageBox()
         confirmation_widget.setWindowTitle("Success")
-        confirmation_widget.setText("THe record was deleted successfully!")
+        confirmation_widget.setText("The record was deleted successfully!")
         confirmation_widget.exec()
 
 
@@ -238,7 +247,7 @@ class InsertDialog(QDialog):
         name = self.student_name.text()
         course = self.course_name.itemText(self.course_name.currentIndex())
         mobile = self.mobile.text()
-        connection = sqlite3.connect("database.db")
+        connection = DatabaseConnection().connect()
         cursor = connection.cursor()
         cursor.execute("INSERT INTO students (name, course, mobile) VALUES (?, ?, ?)",
                        (name, course, mobile))
@@ -271,12 +280,12 @@ class SearchDialog(QDialog):
 
     def search(self):
         name = self.student_name.text()
-        connection = sqlite3.connect("database.db")
+        connection = DatabaseConnection().connect()
         cursor = connection.cursor()
         result = cursor.execute("SELECT * FROM students WHERE name = ?", (name,))
-        row = list(result)[0]
-        print(row)
-        items = main_window.table.findItems("John Smith", Qt.MatchFlag.MatchFixedString)
+        rows = list(result)
+        print(rows)
+        items = main_window.table.findItems(name, Qt.MatchFlag.MatchFixedString)
         for item in items:
             print(item)
             main_window.table.item(item.row(), 1).setSelected(True)
