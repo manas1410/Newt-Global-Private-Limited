@@ -1,0 +1,143 @@
+﻿Code-
+set serveroutput on;
+Declare
+        v_text varchar2(150) not null default 'HELLO';
+begin
+        dbms_output.put_line(v_text);
+end;
+Output-
+        Statement processed.
+HELLO
+
+
+Code - 
+        set serveroutput on;
+Declare
+        v_text varchar2(150) not null default 'HELLO';
+begin
+    v_text := 'PL/SQL' || 'COURSE';
+        dbms_output.put_line(v_text || ' BEGINNER TO ADVANCE');
+End;
+
+
+Output-
+        Statement processed.
+PL/SQLCOURSE BEGINNER TO ADVANCE
+
+
+Code-
+        set serveroutput on;
+Declare
+        v_number number(4,2) not null := 50.42;
+begin
+        dbms_output.put_line(v_number || ' BEGINNER TO ADVANCE');
+End;
+Output-
+        Statement processed.
+50.42 BEGINNER TO ADVANCE
+
+
+
+
+
+
+
+
+Code-
+        set serveroutput on;
+Declare
+        v_number pls_integer not null := 50;
+begin
+        dbms_output.put_line(v_number || ' BEGINNER TO ADVANCE');
+end;
+Output-
+        Statement processed.
+50 BEGINNER TO ADVANCE
+
+
+Code-
+set serveroutput on;
+Declare
+        v_number binary_float not null := 50.42f;
+begin
+        dbms_output.put_line(v_number || ' BEGINNER TO ADVANCE');
+End;
+
+
+Output-
+Statement processed.
+5.04199982E+001 BEGINNER TO ADVANCE
+
+
+Code-
+set serveroutput on;
+Declare
+        v_date date not null := SYSTIMESTAMP;
+begin
+        dbms_output.put_line(v_date || ' BEGINNER TO ADVANCE');
+End;
+
+
+Output-
+Statement processed.
+28-DEC-23 BEGINNER TO ADVANCE
+
+
+Code-
+SET SERVEROUTPUT ON;
+DECLARE 
+    v varchar2(20) := 2 + 25 * 3;
+BEGIN
+    dbms_output.put_line(v);
+END;
+
+
+Output-Statement processed.
+77
+Code-
+DECLARE
+V_TEXT VARCHAR2(10):= 'PL/SQL';
+BEGIN
+--This is a single line comment
+/* This is a 
+    multi line
+    comment */
+--DBMS_OUTPUT.PUT_LINE(V_TEXT || ' is a good language');
+null;
+END;
+
+
+Output- Statement processed.
+
+
+Code-
+begin <<outer>>
+DECLARE
+  --v_outer VARCHAR2(50) := 'Outer Variable!';
+  v_text  VARCHAR2(20) := 'Out-text';
+BEGIN 
+  DECLARE
+    v_text  VARCHAR2(20) := 'In-text';
+    v_inner VARCHAR2(30) := 'Inner Variable';
+  BEGIN
+    --dbms_output.put_line('inside -> ' || v_outer);
+    --dbms_output.put_line('inside -> ' || v_inner);
+      dbms_output.put_line('inner -> ' || v_text);
+      dbms_output.put_line('outer -> ' || outer.v_text);
+  END;
+  --dbms_output.put_line('inside -> ' || v_inner);
+  --dbms_output.put_line(v_outer);
+  dbms_output.put_line(v_text);
+END;
+END outer;
+
+
+Output-
+Statement processed.
+inner -> In-text
+outer -> Out-text
+Out-text
+________________
+Code-
+Output-
+________________
