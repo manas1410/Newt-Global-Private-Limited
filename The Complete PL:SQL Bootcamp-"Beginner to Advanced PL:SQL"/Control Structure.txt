@@ -1,0 +1,521 @@
+﻿IF-ELSE
+Code-
+        SET SERVEROUTPUT ON;
+DECLARE
+  v_number NUMBER := 30;
+BEGIN
+  IF v_number < 10 THEN
+    dbms_output.put_line('I am smaller than 10');
+  ELSIF v_number < 20 THEN
+    dbms_output.put_line('I am smaller than 20');
+  ELSIF v_number < 30 THEN
+    dbms_output.put_line('I am smaller than 30');
+  ELSE
+    dbms_output.put_line('I am equal or greater than 30');
+  END IF;
+END;
+
+
+Output-
+        Statement processed.
+I am equal or greater than 30
+
+
+Code-
+DECLARE
+  v_number NUMBER       := 5;
+  v_name   VARCHAR2(30) := 'Adam';
+BEGIN
+  IF v_number < 10 OR v_name = 'Carol' THEN
+    dbms_output.put_line('HI');
+    dbms_output.put_line('I am smaller than 10');
+  ELSIF v_number < 20 THEN
+    dbms_output.put_line('I am smaller than 20');
+  ELSIF v_number < 30 THEN
+    dbms_output.put_line('I am smaller than 30');
+  ELSE
+    IF v_number IS NULL THEN
+      dbms_output.put_line('The number is null..');
+    ELSE
+      dbms_output.put_line('I am equal or greater than 30');
+    END IF;
+  END IF;
+END;
+
+
+Output-
+        Statement processed.
+HI
+I am smaller than 10
+
+
+CASE Statement
+Code-
+DECLARE
+  v_job_code        VARCHAR2(10) := 'SA_MAN';
+  v_salary_increase NUMBER;
+BEGIN
+  v_salary_increase :=  CASE v_job_code 
+                         WHEN 'SA_MAN' THEN 0.2
+                         WHEN 'SA_REP' THEN 0.3
+                        ELSE 0
+                        END;
+  dbms_output.put_line('Your salary increase is : '|| v_salary_increase);
+END;
+
+
+
+
+Output-
+        Statement processed.
+Your salary increase is : .2
+
+
+Code-
+DECLARE
+  v_job_code        VARCHAR2(10) := 'IT_PROG';
+  v_department      VARCHAR2(10) := 'IT';
+  v_salary_increase NUMBER;
+BEGIN
+  v_salary_increase:=CASE
+                      WHEN v_job_code   = 'SA_MAN' THEN 0.2
+                      WHEN v_department = 'IT' AND v_job_code = 'IT_PROG' THEN 0.3
+                     ELSE 0
+                     END;
+  dbms_output.put_line('Your salary increase is : '|| v_salary_increase);
+END;
+
+
+Output-
+        Statement processed.
+Your salary increase is : .3
+
+
+Code-
+        DECLARE
+  v_job_code        VARCHAR2(10) := 'IT_PROG';
+  v_department      VARCHAR2(10) := 'IT';
+  v_salary_increase NUMBER;
+BEGIN
+  CASE
+    WHEN v_job_code = 'SA_MAN' THEN
+      v_salary_increase := 0.2;
+      dbms_output.put_line('The salary increase for a Sales Manager is: '|| v_salary_increase);
+    WHEN v_department = 'IT' AND v_job_code = 'IT_PROG' THEN
+      v_salary_increase := 0.2;
+      dbms_output.put_line('The salary increase for a Sales Manager is: '|| v_salary_increase);
+    ELSE
+      v_salary_increase := 0;
+      dbms_output.put_line('The salary increase for this job code is: '|| v_salary_increase);
+  END CASE;
+END;
+
+
+Output-
+        Statement processed.
+The salary increase for a Sales Manager is: .2
+
+
+Code-
+        declare
+        v_counter number(2) := 1;
+begin
+        loop 
+                dbms_output.put_line('My Counter is :' || v_counter);
+                v_counter := v_counter + 1;
+                Exit when v_counter > 10;
+        end loop;
+end;
+
+
+Output-Statement processed.
+My Counter is :1
+My Counter is :2
+My Counter is :3
+My Counter is :4
+My Counter is :5
+My Counter is :6
+My Counter is :7
+My Counter is :8
+My Counter is :9
+My Counter is :10
+
+
+
+
+Code-
+DECLARE
+  v_counter NUMBER(2) := 1;
+BEGIN
+  WHILE v_counter <= 5 LOOP
+    dbms_output.put_line('My counter is : '|| v_counter);
+    v_counter := v_counter + 1;
+  END LOOP;
+END;
+
+
+Output-Statement processed.
+My Counter is :1
+My Counter is :2
+My Counter is :3
+My Counter is :4
+My Counter is :5
+
+
+
+
+Code-
+BEGIN
+  FOR i IN  1..3 LOOP
+    dbms_output.put_line('My counter is : ' || i);
+  END LOOP;
+END;
+
+
+Output-Statement processed.
+My counter is : 1
+My counter is : 2
+My counter is : 3
+
+
+Code-
+        BEGIN
+  FOR i IN REVERSE 1..3 LOOP
+    dbms_output.put_line('My counter is : ' || i);
+  END LOOP;
+END;
+
+
+Output-
+        Statement processed.
+My counter is : 3
+My counter is : 2
+My counter is : 1
+
+
+Code-
+DECLARE
+ v_inner NUMBER := 1;
+BEGIN
+ FOR v_outer IN 1..5 LOOP
+  dbms_output.put_line('My outer value is : ' || v_outer );
+    v_inner := 1;
+    LOOP
+      v_inner := v_inner+1;
+      dbms_output.put_line('  My inner value is : ' || v_inner );
+      EXIT WHEN v_inner * v_outer >= 15;
+    END LOOP;
+ END LOOP;
+END;
+
+
+Output-
+Statement processed.
+My outer value is : 1
+ My inner value is : 2
+ My inner value is : 3
+ My inner value is : 4
+ My inner value is : 5
+ My inner value is : 6
+ My inner value is : 7
+ My inner value is : 8
+ My inner value is : 9
+ My inner value is : 10
+ My inner value is : 11
+ My inner value is : 12
+ My inner value is : 13
+ My inner value is : 14
+ My inner value is : 15
+My outer value is : 2
+ My inner value is : 2
+ My inner value is : 3
+ My inner value is : 4
+ My inner value is : 5
+ My inner value is : 6
+ My inner value is : 7
+ My inner value is : 8
+My outer value is : 3
+ My inner value is : 2
+ My inner value is : 3
+ My inner value is : 4
+ My inner value is : 5
+My outer value is : 4
+ My inner value is : 2
+ My inner value is : 3
+ My inner value is : 4
+My outer value is : 5
+ My inner value is : 2
+ My inner value is : 3
+
+
+
+
+
+
+
+
+Code-
+        DECLARE
+ v_inner NUMBER := 1;
+BEGIN
+<<outer_loop>>
+ FOR v_outer IN 1..5 LOOP
+  dbms_output.put_line('My outer value is : ' || v_outer );
+    v_inner := 1;
+    <<inner_loop>>
+    LOOP
+      v_inner := v_inner+1;
+      dbms_output.put_line('  My inner value is : ' || v_inner );
+      EXIT outer_loop WHEN v_inner * v_outer >= 16;
+      EXIT WHEN v_inner * v_outer >= 15;
+    END LOOP inner_loop;
+ END LOOP outer_loop;
+END;
+
+
+Output-
+        Statement processed.
+My outer value is : 1
+ My inner value is : 2
+ My inner value is : 3
+ My inner value is : 4
+ My inner value is : 5
+ My inner value is : 6
+ My inner value is : 7
+ My inner value is : 8
+ My inner value is : 9
+ My inner value is : 10
+ My inner value is : 11
+ My inner value is : 12
+ My inner value is : 13
+ My inner value is : 14
+ My inner value is : 15
+My outer value is : 2
+ My inner value is : 2
+ My inner value is : 3
+ My inner value is : 4
+ My inner value is : 5
+ My inner value is : 6
+ My inner value is : 7
+ My inner value is : 8
+
+
+Code-
+        DECLARE
+ v_inner NUMBER := 1;
+BEGIN
+ FOR v_outer IN 1..10 LOOP
+  dbms_output.put_line('My outer value is : ' || v_outer );
+    v_inner := 1;
+    WHILE v_inner * v_outer < 15 LOOP
+      v_inner := v_inner + 1;
+      CONTINUE WHEN MOD(v_inner * v_outer,3) = 0;
+      dbms_output.put_line('  My inner value is : ' || v_inner );
+    END LOOP;
+ END LOOP;
+END;
+
+
+Output-Statement processed.
+My outer value is : 1
+ My inner value is : 2
+ My inner value is : 4
+ My inner value is : 5
+ My inner value is : 7
+ My inner value is : 8
+ My inner value is : 10
+ My inner value is : 11
+ My inner value is : 13
+ My inner value is : 14
+My outer value is : 2
+ My inner value is : 2
+ My inner value is : 4
+ My inner value is : 5
+ My inner value is : 7
+ My inner value is : 8
+My outer value is : 3
+My outer value is : 4
+ My inner value is : 2
+ My inner value is : 4
+My outer value is : 5
+ My inner value is : 2
+My outer value is : 6
+My outer value is : 7
+ My inner value is : 2
+My outer value is : 8
+ My inner value is : 2
+My outer value is : 9
+My outer value is : 10
+ My inner value is : 2
+
+
+Code-
+        DECLARE
+ v_inner NUMBER := 1;
+BEGIN
+<<outer_loop>>
+ FOR v_outer IN 1..10 LOOP
+  dbms_output.put_line('My outer value is : ' || v_outer );
+    v_inner := 1;
+    <<inner_loop>>
+    LOOP
+      v_inner := v_inner + 1;
+      CONTINUE outer_loop WHEN v_inner = 10;
+      dbms_output.put_line('  My inner value is : ' || v_inner );
+    END LOOP inner_loop;
+ END LOOP outer_loop;
+End;
+
+
+Output-
+Statement processed.
+My outer value is : 1
+ My inner value is : 2
+ My inner value is : 3
+ My inner value is : 4
+ My inner value is : 5
+ My inner value is : 6
+ My inner value is : 7
+ My inner value is : 8
+ My inner value is : 9
+My outer value is : 2
+ My inner value is : 2
+ My inner value is : 3
+ My inner value is : 4
+ My inner value is : 5
+ My inner value is : 6
+ My inner value is : 7
+ My inner value is : 8
+ My inner value is : 9
+My outer value is : 3
+ My inner value is : 2
+ My inner value is : 3
+ My inner value is : 4
+ My inner value is : 5
+ My inner value is : 6
+ My inner value is : 7
+ My inner value is : 8
+ My inner value is : 9
+My outer value is : 4
+ My inner value is : 2
+ My inner value is : 3
+ My inner value is : 4
+ My inner value is : 5
+ My inner value is : 6
+ My inner value is : 7
+ My inner value is : 8
+ My inner value is : 9
+My outer value is : 5
+ My inner value is : 2
+ My inner value is : 3
+ My inner value is : 4
+ My inner value is : 5
+ My inner value is : 6
+ My inner value is : 7
+ My inner value is : 8
+ My inner value is : 9
+My outer value is : 6
+ My inner value is : 2
+ My inner value is : 3
+ My inner value is : 4
+ My inner value is : 5
+ My inner value is : 6
+ My inner value is : 7
+ My inner value is : 8
+ My inner value is : 9
+My outer value is : 7
+ My inner value is : 2
+ My inner value is : 3
+ My inner value is : 4
+ My inner value is : 5
+ My inner value is : 6
+ My inner value is : 7
+ My inner value is : 8
+ My inner value is : 9
+My outer value is : 8
+ My inner value is : 2
+ My inner value is : 3
+ My inner value is : 4
+ My inner value is : 5
+ My inner value is : 6
+ My inner value is : 7
+ My inner value is : 8
+ My inner value is : 9
+My outer value is : 9
+ My inner value is : 2
+ My inner value is : 3
+ My inner value is : 4
+ My inner value is : 5
+ My inner value is : 6
+ My inner value is : 7
+ My inner value is : 8
+ My inner value is : 9
+My outer value is : 10
+ My inner value is : 2
+ My inner value is : 3
+ My inner value is : 4
+ My inner value is : 5
+ My inner value is : 6
+ My inner value is : 7
+ My inner value is : 8
+ My inner value is : 9
+
+
+Code-
+DECLARE
+  v_searched_number NUMBER  := 22;
+  v_is_prime        BOOLEAN := true;
+BEGIN
+  FOR x IN 2..v_searched_number-1 LOOP
+    IF v_searched_number MOD x = 0 THEN
+      dbms_output.put_line(v_searched_number|| ' is not a prime number..');
+      v_is_prime := false;
+      GOTO end_point;
+    END IF;
+  END LOOP;
+  IF v_is_prime THEN 
+    dbms_output.put_line(v_searched_number|| ' is a prime number..');
+  END IF;
+<<end_point>>
+  dbms_output.put_line('Check complete..');
+END;
+
+
+Output-
+        Statement processed.
+22 is not a prime number..
+Check complete..
+
+
+Code-
+DECLARE
+  v_searched_number NUMBER  := 32457;
+  v_is_prime        BOOLEAN := TRUE;
+  x                 NUMBER  := 2;
+BEGIN
+  <<start_point>>
+    IF v_searched_number MOD x = 0 THEN
+      dbms_output.put_line(v_searched_number|| ' is not a prime number..');
+      v_is_prime := FALSE;
+      GOTO end_point;
+    END IF;
+  x := x+1;
+  IF x = v_searched_number THEN
+    GOTO prime_point;
+  END IF;
+  GOTO start_point;
+  <<prime_point>>
+  IF v_is_prime THEN
+    dbms_output.put_line(v_searched_number || ' is a prime number..');
+  END IF;
+<<end_point>>
+  dbms_output.put_line('Check complete..');
+END;
+
+
+Output- 
+Statement processed.
+32457 is not a prime number..
+Check complete..
+Code-
+Output-
