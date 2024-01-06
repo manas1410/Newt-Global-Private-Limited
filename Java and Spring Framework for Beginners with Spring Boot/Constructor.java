@@ -1,7 +1,12 @@
 class Human
 {
-    private int age = 11;
-    private String name = "Manas";
+    private int age;
+    private String name ;
+
+    Human(){
+        age = 11;
+        name = "Manas";
+    }
 
     public String getName()
     {
@@ -15,7 +20,7 @@ class Human
     }
 }
 
-public class Encapsulation
+public class Constructor
 {
     public static void main(String args[]){
         Human obj = new Human();
